@@ -22,6 +22,13 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
         }
+        .title {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
         .logo {
             max-width: 150px;
             margin-bottom: 10px;
@@ -31,6 +38,9 @@
             font-weight: 500;
             margin-bottom: 10px;
             line-height: 1.5;
+        }
+        .bold {
+            font-weight: bold;
         }
         input[type="text"] {
             width: 300px;
@@ -58,8 +68,9 @@
 </head>
 <body>
     <div class="container">
+        <div class="title">진행비 결제</div>
         <img src="https://github.com/ctgy82/glcal/raw/main/logo2.png" alt="G.lab 로고" class="logo">
-        <h1>홍길동 고객님 안녕하세요,<br> 진행비를 결제하겠습니다.<br><br> 성심을 다하겠습니다.</h1>
+        <h1><span class="bold">홍길동</span> 고객님 안녕하세요,<br> 진행비를 결제하겠습니다.<br><br> 성심을 다하겠습니다.</h1>
         <input type="text" id="amount" placeholder="₩0" oninput="formatAmount(this)">
         <button onclick="processPayment()">결제</button>
     </div>
