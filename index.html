@@ -13,6 +13,14 @@
             height: 100vh;
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #f0f0f0;
+            margin: 0;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 20px;
+            left: 20px;
         }
         .container {
             text-align: center;
@@ -21,13 +29,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
-        }
-        .title {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 28px;
-            font-weight: bold;
+            margin-top: 80px; /* Adjust this value if needed */
         }
         .logo {
             max-width: 150px;
@@ -67,8 +69,8 @@
     <script src="https://js.tosspayments.com/v1"></script>
 </head>
 <body>
+    <div class="title">진행비 결제</div>
     <div class="container">
-        <div class="title">진행비 결제</div>
         <img src="https://github.com/ctgy82/glcal/raw/main/logo2.png" alt="G.lab 로고" class="logo">
         <h1><span class="bold">홍길동</span> 고객님 안녕하세요,<br> 진행비를 결제하겠습니다.<br><br> 성심을 다하겠습니다.</h1>
         <input type="text" id="amount" placeholder="₩0" oninput="formatAmount(this)">
