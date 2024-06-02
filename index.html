@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 페이지</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: right;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background-color: #FFA500;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e69500;
+        }
+    </style>
+    <script src="https://js.tosspayments.com/v1"></script>
+</head>
+<body>
+    <div class="container">
+        <img src="/Users/macategory/Library/CloudStorage/GoogleDrive-choibeomju@gmail.com/내 드라이브/6. Coding/logo2.png" alt="G.lab 로고" class="logo">
+        <h1>홍길동 고객님 안녕하세요,<br> 진행비를 결제하겠습니다.<br><br> 성심을 다하겠습니다.</h1>
+        <input type="text" id="amount" placeholder="₩0" oninput="formatAmount(this)">
+        <button onclick="processPayment()">결제</button>
+    </div>
+    
+    <script>
+        function formatAmount(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            if (value) {
+                value = parseInt(value, 10).toLocaleString('ko-KR');
+                input.value = '₩' + value;
+            } else {
+                input.value = '';
+            }
+        }
+
+        function processPayment() {
+            const amountElement = document.getElementById('amount');
+            let amount = amountElement.value.replace(/[^\d]/g, '');
+            if (amount === '' || isNaN(amount) || parseInt(amount) <= 0) {
+                alert('유효한 금액을 입력해주세요.');
+                return;
+            }
+
+            const clientKey = 'test_ck_yZqmkKeP8g9vegpMa1l4VbQRxB9l'; // 제공된 테스트 키
+
+            const tossPayments = TossPayments(clientKey);
+
+            tossPayments.requestPayment('카드', {
+                amount: amount,
+                orderId: 'orderId-' + new Date().getTime(),
+                orderName: '결제 테스트',
+                customerName: '고객 이름',
+                successUrl: 'https://your-success-url.com',
+                failUrl: 'https://your-fail-url.com'
+            }).catch(function (error) {
+                console.error(error);
+                if (error.code === 'USER_CANCEL') {
+                    alert('사용자가 결제를 취소했습니다.');
+                } else if (error.code === 'INVALID_CARD_COMPANY') {
+                    alert('유효하지 않은 카드입니다.');
+                } else {
+                    alert('결제 처리 중 오류가 발생했습니다.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
